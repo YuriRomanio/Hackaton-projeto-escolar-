@@ -170,11 +170,11 @@
 
 <script>
 document.getElementById("login-form").addEventListener("submit", function(e) {
-  e.preventDefault(); // evita recarregar
+  e.preventDefault(); 
   const usuario = document.getElementById("usuario").value;
   const senha = document.getElementById("senha").value;
 
-  // simulação de login (apenas exemplo)
+ 
   if (usuario === "admin" && senha === "hackaton") {
     window.location.href = "site.html";
   } else {
@@ -182,5 +182,6 @@ document.getElementById("login-form").addEventListener("submit", function(e) {
   }
 });
 </script>
+
 
 

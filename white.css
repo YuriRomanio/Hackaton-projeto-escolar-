@@ -1,0 +1,9 @@
+
+body.tema-escuro {
+   --bg-primary: #F0F2F5; /* Fundo principal claro, como um cinza suave */
+  --bg-secondary: #FFFFFF; /* Fundo secundário branco puro para os cards */
+  --border-color: #E0E0E0; /* Borda cinza claro */
+  --text-primary: #333333; /* Texto principal escuro para alto contraste */
+  --text-secondary: #666666; /* Texto secundário cinza escuro */
+  --accent-color: #007bff;
+}

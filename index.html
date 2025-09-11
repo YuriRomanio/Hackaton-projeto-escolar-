@@ -3,148 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hackaton</title>
+  <title>Hackaton - Bem-vindo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --border-color: #30363d;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b949e;
+      --accent-color: #2f81f7;
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
-
     body {
-      background: linear-gradient(135deg, #474754, #0d0d0e, #786f7e39);
-      color: #fff;
+      background: var(--bg-primary);
+      color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
-
     .container {
-      background: rgba(0, 0, 0, 0.85);
+      background: var(--bg-secondary);
       padding: 40px;
-      border-radius: 20px;
+      border-radius: 16px;
       width: 350px;
       text-align: center;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
     }
-
     .title {
-      color: #ffffff;
       font-size: 28px;
       margin-bottom: 10px;
     }
-
     .subtitle {
-      color: #ddd;
+      color: var(--text-secondary);
       font-size: 20px;
-      margin-bottom: 25px;
+      font-weight: 400;
+      margin-bottom: 30px;
     }
-
     .formulario {
       display: flex;
       flex-direction: column;
       text-align: left;
       gap: 15px;
     }
-
     .formulario label {
       font-size: 14px;
-      color: #ffffff;
+      color: var(--text-secondary);
+      margin-bottom: -5px;
     }
-
     .formulario input {
       padding: 12px;
-      border: none;
-      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: var(--bg-primary);
       outline: none;
-      font-size: 14px;
+      font-size: 16px;
+      color: var(--text-primary);
     }
-
+    .formulario input:focus {
+      border-color: var(--accent-color);
+    }
     .btn {
       margin-top: 10px;
       padding: 12px;
       border: none;
-      border-radius: 10px;
-      background: #ffffff;
-      color: #000;
+      border-radius: 8px;
+      background: var(--accent-color);
+      color: #fff;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      transition: opacity 0.3s;
     }
-
     .btn:hover {
-      background: #e6e6e6;
+      opacity: 0.9;
     }
-
     .extra {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 14px;
+      color: var(--text-secondary);
     }
-
     .extra a {
-      color: #ffffff;
+      color: var(--accent-color);
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 500;
       cursor: pointer;
     }
-
     .extra a:hover {
       text-decoration: underline;
     }
-
     .hidden {
       display: none;
     }
   </style>
 </head>
 <body>
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+
   <main class="container">
     <h1 class="title">Hackaton</h1>
     <h2 class="subtitle" id="form-title">Login</h2>
 
-    <!-- FORM LOGIN -->
     <form id="login-form" class="formulario">
       <label for="usuario">Usuário</label>
       <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required>
-
       <label for="senha">Senha</label>
       <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-    
       <button type="submit" class="btn">Entrar</button>
     </form>
 
-    <!-- FORM CADASTRO -->
     <form id="cadastro-form" class="formulario hidden">
       <label for="novo-usuario">Usuário</label>
       <input type="text" id="novo-usuario" name="novo-usuario" placeholder="Crie um usuário" required>
-
       <label for="email">E-mail</label>
       <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-
       <label for="nova-senha">Senha</label>
       <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha" required>
-
       <button type="submit" class="btn">Cadastrar</button>
     </form>
 
-    <!-- BOTÃO DE TROCA -->
     <p class="extra">
-      <a href="#" id="toggle-link">Não tem conta? Cadastre-se aqui</a>
+      <a id="toggle-link">Não tem conta? Cadastre-se aqui</a>
     </p>
   </main>
 
-  <!-- SCRIPT PARA LOGIN -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script>
     const loginForm = document.getElementById("login-form");
     const cadastroForm = document.getElementById("cadastro-form");
     const toggleLink = document.getElementById("toggle-link");
     const formTitle = document.getElementById("form-title");
 
-    toggleLink.addEventListener("click", (e) => {
-      e.preventDefault();
+    function toggleForms() {
       if (loginForm.classList.contains("hidden")) {
         loginForm.classList.remove("hidden");
         cadastroForm.classList.add("hidden");
@@ -156,33 +156,30 @@
         formTitle.textContent = "Cadastro";
         toggleLink.textContent = "Já tem conta? Voltar ao login";
       }
+    }
+
+    toggleLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleForms();
     });
 
     loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
       const usuario = document.getElementById("usuario").value;
       const senha = document.getElementById("senha").value;
-
       if (usuario === "admin" && senha === "developer") {
         window.location.href = "site.html";
       } else {
         alert("Usuário ou senha inválidos!");
       }
     });
-  </script>
-
-  <!-- ACESSIBILIDADE VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    
+    cadastroForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        // Aqui iria a lógica para enviar os dados para um servidor
+        alert("Cadastro realizado com sucesso! Por favor, faça o login.");
+        toggleForms(); // Volta para a tela de login
+    });
   </script>
 </body>
 </html>
-

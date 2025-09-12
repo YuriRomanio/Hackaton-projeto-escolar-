@@ -7,7 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="white.css"> <style>
+    /*
+      =======================================================
+      TEMA ESCURO (DARK MODE) - PADRÃO INICIAL
+      =======================================================
+    */
     :root {
       --bg-primary: #0d1117;
       --bg-secondary: #161b22;
@@ -55,13 +61,19 @@
       text-align: left;
       gap: 15px;
     }
+    .input-group {
+        position: relative;
+    }
     .formulario label {
+      display: block;
       font-size: 14px;
       color: var(--text-secondary);
-      margin-bottom: -5px;
+      margin-bottom: 5px;
     }
     .formulario input {
+      width: 100%;
       padding: 12px;
+      padding-right: 40px; 
       border: 1px solid var(--border-color);
       border-radius: 8px;
       background-color: var(--bg-primary);
@@ -71,6 +83,14 @@
     }
     .formulario input:focus {
       border-color: var(--accent-color);
+    }
+    .password-toggle-icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(25%);
+      color: var(--text-secondary);
+      cursor: pointer;
     }
     .btn {
       margin-top: 10px;
@@ -114,20 +134,32 @@
     <h2 class="subtitle" id="form-title">Login</h2>
 
     <form id="login-form" class="formulario">
-      <label for="usuario">Usuário</label>
-      <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required>
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+      <div class="input-group">
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required>
+      </div>
+      <div class="input-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        <i class="fas fa-eye password-toggle-icon" id="toggle-senha"></i>
+      </div>
       <button type="submit" class="btn">Entrar</button>
     </form>
 
     <form id="cadastro-form" class="formulario hidden">
-      <label for="novo-usuario">Usuário</label>
-      <input type="text" id="novo-usuario" name="novo-usuario" placeholder="Crie um usuário" required>
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-      <label for="nova-senha">Senha</label>
-      <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha" required>
+      <div class="input-group">
+        <label for="novo-usuario">Usuário</label>
+        <input type="text" id="novo-usuario" name="novo-usuario" placeholder="Crie um usuário" required>
+      </div>
+      <div class="input-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+      </div>
+      <div class="input-group">
+        <label for="nova-senha">Senha</label>
+        <input type="password" id="nova-senha" name="nova-senha" placeholder="Crie uma senha" required>
+        <i class="fas fa-eye password-toggle-icon" id="toggle-nova-senha"></i>
+      </div>
       <button type="submit" class="btn">Cadastrar</button>
     </form>
 
@@ -176,10 +208,24 @@
     
     cadastroForm.addEventListener("submit", function(e) {
         e.preventDefault();
-        // Aqui iria a lógica para enviar os dados para um servidor
         alert("Cadastro realizado com sucesso! Por favor, faça o login.");
-        toggleForms(); // Volta para a tela de login
+        toggleForms();
     });
+
+    function setupPasswordToggle(inputId, toggleId) {
+      const passwordInput = document.getElementById(inputId);
+      const toggleIcon = document.getElementById(toggleId);
+
+      toggleIcon.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+    }
+
+    setupPasswordToggle('senha', 'toggle-senha');
+    setupPasswordToggle('nova-senha', 'toggle-nova-senha');
   </script>
 </body>
 </html>

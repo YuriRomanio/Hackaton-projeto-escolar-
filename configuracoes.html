@@ -3,222 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hackaton - Configurações</title>
+  <title>AcessCore - Configurações</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="white.css">
   <style>
-    /*
-      =======================================================
-      TEMA ESCURO (DARK MODE) - PADRÃO INICIAL
-      =======================================================
-    */
-    :root{
-      --bg-primary:#0d1117;
-      --bg-secondary:#161b22;
-      --border-color:#30363d;
-      --text-primary:#c9d1d9;
-      --text-secondary:#8b949e;
-      --accent-color:#2f81f7;
-      --danger-color:#da3633
-    }
-    body{
-      margin:0;font-family:'Poppins',sans-serif;
-      background:var(--bg-primary);
-      color:var(--text-primary);
-      display:flex;height:100vh;overflow-x:hidden
-    }
-    .sidebar{
-      width:240px;background:var(--bg-secondary);
-      padding:25px 0;display:flex;flex-direction:column;
-      border-right:1px solid var(--border-color);
-      transition:transform .3s ease-in-out;z-index:1000
-    }
-    .sidebar-header{
-      padding:0 25px;margin-bottom:30px;display:flex;
-      align-items:center
-    }
-    .sidebar-header i{
-      font-size:32px;color:var(--accent-color);
-      margin-right:10px
-    }
-    .sidebar-header h2{
-      margin:0;font-size:24px;color:var(--text-primary)
-    }
-    .sidebar-nav a{
-      display:flex;align-items:center;padding:15px 25px;
-      color:var(--text-secondary);text-decoration:none;
-      transition:.2s ease-in-out;border-left:3px solid transparent
-    }
-    .sidebar-nav a:hover,.sidebar-nav a.active{
-      background:var(--bg-primary);color:#fff;
-      border-left:3px solid var(--accent-color)
-    }
-    .sidebar-nav a i{
-      width:20px;margin-right:15px;text-align:center
-    }
-    .sidebar-nav .logout{
-      margin-top:auto
-    }
-    .main{
-      flex:1;padding:30px;overflow-y:auto
-    }
-    .header{
-      display:flex;align-items:center;gap:20px;margin-bottom:20px
-    }
-    .header-text h1{
-      margin:0;font-size:28px
-    }
-    .header-text p{
-      margin:5px 0 0 0;color:var(--text-secondary)
-    }
-    .menu-toggle{
-      display:none;background:0 0;border:1px solid var(--border-color);
-      color:var(--text-primary);padding:8px 12px;border-radius:6px;
-      cursor:pointer;font-size:20px
-    }
-    .grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-      gap:20px
-    }
-    .card{
-      background:var(--bg-secondary);border-radius:8px;
-      border:1px solid var(--border-color);display:flex;flex-direction:column
-    }
-    .card-header{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:20px;border-bottom:1px solid var(--border-color)
-    }
-    .card-header-title{
-      display:flex;align-items:center;gap:15px
-    }
-    .card-header-title i{
-      font-size:20px;color:var(--accent-color)
-    }
-    .card-header-title h2{
-      font-size:18px;margin:0;font-weight:500
-    }
-    .card-content{
-      padding:20px;flex-grow:1;display:flex;flex-direction:column;gap:20px
-    }
-    .setting-row{
-      display:flex;justify-content:space-between;align-items:center
-    }
-    .setting-row span{
-      font-weight:500
-    }
-    .btn-secondary{
-      background:var(--border-color);color:var(--text-primary);
-      border:none;padding:8px 16px;border-radius:6px;cursor:pointer;
-      transition:background-color .2s
-    }
-    .btn-secondary:hover{
-      background-color:#3a414a
-    }
-    .switch{
-      position:relative;display:inline-block;width:44px;height:24px
-    }
-    .switch input{
-      display:none
-    }
-    .slider{
-      position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;
-      background-color:#333;transition:.4s;border-radius:24px
-    }
-    .slider:before{
-      position:absolute;content:"";height:18px;width:18px;
-      left:3px;bottom:3px;background-color:#fff;transition:.4s;
-      border-radius:50%
-    }
-    .switch input:checked+.slider{
-      background-color:var(--accent-color)
-    }
-    .switch input:checked+.slider:before{
-      transform:translateX(20px)
-    }
-    .modal-overlay{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,.7);display:flex;justify-content:center;
-      align-items:center;z-index:2000;opacity:0;visibility:hidden;
-      transition:opacity .2s,visibility .2s
-    }
-    .modal-overlay:not(.hidden){
-      opacity:1;visibility:visible
-    }
-    .modal-content{
-      background:var(--bg-secondary);padding:30px;border-radius:12px;
-      border:1px solid var(--border-color);width:90%;max-width:400px;
-      text-align:left;transform:scale(.95);transition:transform .2s
-    }
-    .modal-overlay:not(.hidden) .modal-content{
-      transform:scale(1)
-    }
-    .modal-content h3{
-      margin:0 0 10px 0;font-size:20px;font-weight:600
-    }
-    .modal-content p{
-      margin:0 0 25px 0;color:var(--text-secondary)
-    }
-    .modal-buttons{
-      display:flex;justify-content:flex-end;gap:15px
-    }
-    .modal-buttons button{
-      padding:10px 20px;border:none;border-radius:6px;
-      font-weight:500;font-size:14px;cursor:pointer;
-      transition:background-color .2s,opacity .2s
-    }
-    .modal-buttons .btn-secondary{
-      background-color:transparent;border:1px solid var(--border-color);
-      color:var(--text-primary)
-    }
-    .modal-buttons .btn-secondary:hover{
-      background-color:var(--border-color)
-    }
-    .modal-buttons .btn-danger{
-      background:var(--danger-color);color:#fff
-    }
-    .modal-buttons .btn-danger:hover{
-      opacity:.85
-    }
-    .hidden{
-      display:none
-    }
-    @media (max-width:768px){
-      body{
-        overflow-y:auto
-      }
-      .sidebar{
-        position:fixed;height:100%;transform:translateX(-100%)
-      }
-      .sidebar.open{
-        transform:translateX(0)
-      }
-      .main{
-        width:100%;padding:15px;box-sizing:border-box
-      }
-      .header-text h1{
-        font-size:24px
-      }
-      .menu-toggle{
-        display:block
-      }
-    }
+    :root{--bg-primary:#0d1117;--bg-secondary:#161b22;--border-color:#30363d;--text-primary:#c9d1d9;--text-secondary:#8b949e;--accent-color:#2f81f7;--danger-color:#da3633;--success-color:#28a745}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg-primary);color:var(--text-primary);display:flex;height:100vh;overflow-x:hidden}
+    .sidebar{width:240px;background:var(--bg-secondary);padding:25px 0;display:flex;flex-direction:column;border-right:1px solid var(--border-color);transition:transform .3s ease-in-out;z-index:1000}
+    .sidebar-header{padding:0 25px;margin-bottom:30px;display:flex;align-items:center}
+    .sidebar-header i{font-size:32px;color:var(--accent-color);margin-right:10px}
+    .sidebar-header h2{margin:0;font-size:24px;color:var(--text-primary)}
+    .sidebar-nav a{display:flex;align-items:center;padding:15px 25px;color:var(--text-secondary);text-decoration:none;transition:.2s ease-in-out;border-left:3px solid transparent}
+    .sidebar-nav a:hover,.sidebar-nav a.active{background:var(--bg-primary);color:#fff;border-left:3px solid var(--accent-color)}
+    .sidebar-nav a i{width:20px;margin-right:15px;text-align:center}
+    .sidebar-nav .logout{margin-top:auto}
+    .main{flex:1;padding:30px;overflow-y:auto}
+    .header{display:flex;align-items:center;gap:20px;margin-bottom:20px}
+    .header-text h1{margin:0;font-size:28px}
+    .header-text p{margin:5px 0 0 0;color:var(--text-secondary)}
+    .menu-toggle{display:none;background:0 0;border:1px solid var(--border-color);color:var(--text-primary);padding:8px 12px;border-radius:6px;cursor:pointer;font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:30px;} /* Alinhamento corrigido */
+    .card{background:var(--bg-secondary);border-radius:8px;border:1px solid var(--border-color);display:flex;flex-direction:column;}
+    .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--border-color)}
+    .card-header-title{display:flex;align-items:center;gap:15px}
+    .card-header-title i{font-size:20px;color:var(--accent-color)}
+    .card-header-title h2{font-size:18px;margin:0;font-weight:500}
+    .card-content{padding:20px;flex-grow:1;display:flex;flex-direction:column;gap:20px;}
+    .setting-row{display:flex;justify-content:space-between;align-items:center}
+    .setting-row span{font-weight:500}
+    .btn-secondary{background:var(--border-color);color:var(--text-primary);border:none;padding:8px 16px;border-radius:6px;cursor:pointer;transition:background-color .2s}
+    .btn-secondary:hover{background-color:#3a414a}
+    .switch{position:relative;display:inline-block;width:44px;height:24px}
+    .switch input{display:none}
+    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#333;transition:.4s;border-radius:24px}
+    .slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:#fff;transition:.4s;border-radius:50%}
+    .switch input:checked+.slider{background-color:var(--accent-color)}
+    .switch input:checked+.slider:before{transform:translateX(20px)}
+    .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:2000;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+    .modal-overlay:not(.hidden){opacity:1;visibility:visible}
+    .modal-content{background:var(--bg-secondary);padding:30px;border-radius:12px;border:1px solid var(--border-color);width:90%;max-width:500px;text-align:left;transform:scale(.95);transition:transform .2s}
+    .modal-overlay:not(.hidden) .modal-content{transform:scale(1)}
+    .modal-content h3{margin:0 0 10px 0;font-size:20px;font-weight:600}
+    .modal-content p{margin:0 0 25px 0;color:var(--text-secondary)}
+    .modal-buttons{display:flex;justify-content:flex-end;gap:15px;margin-top:25px;}
+    .modal-buttons button,.btn-primary{padding:10px 20px;border:none;border-radius:6px;font-weight:500;font-size:14px;cursor:pointer;transition:background-color .2s,opacity .2s}
+    .modal-buttons .btn-secondary{background-color:transparent;border:1px solid var(--border-color);color:var(--text-primary)}
+    .modal-buttons .btn-secondary:hover{background-color:var(--border-color)}
+    .modal-buttons .btn-danger,.btn-danger{background:var(--danger-color);color:#fff}
+    .modal-buttons .btn-danger:hover,.btn-danger:hover{opacity:.85}
+    .btn-primary {background:var(--accent-color);color:#fff;}
+    .btn-primary:hover {opacity:.85;}
+    .hidden{display:none}
+    .modal-form-group {margin-bottom: 15px;}
+    .modal-form-group label {display:block; margin-bottom: 5px; font-size: 14px; color: var(--text-secondary);}
+    .modal-form-group input {width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background-color: var(--bg-primary); color: var(--text-primary); box-sizing: border-box;}
+    .policy-content {max-height: 60vh; overflow-y: auto; padding-right: 15px;}
+    .policy-content h4 {margin-top: 20px; margin-bottom: 5px;}
+    .success-modal-content {text-align: center; max-width: 380px;}
+    .success-icon {font-size: 48px; color: var(--success-color); margin-bottom: 15px; display: block;}
+    .success-modal-content .modal-buttons {justify-content: center;}
+    .contact-entry:not(:last-child) {border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 15px;}
+    .contact-entry p {margin: 6px 0; color: var(--text-secondary);}
+    .contact-entry p strong {font-size: 16px; color: var(--text-primary);}
+    .contact-entry p i {margin-right: 10px; width: 16px; text-align: center;}
+    @media (max-width:768px){body{overflow-y:auto}.sidebar{position:fixed;height:100%;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{width:100%;padding:15px;box-sizing:border-box}.header-text h1{font-size:24px}.menu-toggle{display:block}.grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
   <div id="overlay" class="overlay"></div>
   <div id="sidebar" class="sidebar">
-    <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>Hackaton</h2></div>
+    <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>AcessCore</h2></div>
     <nav class="sidebar-nav">
-    <a href="site.html"><i class="fas fa-tachometer-alt"></i> Início</a>
-    <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
-    <a href="cursos.html"><i class="fas fa-book"></i> Cursos</a>
-    <a href="compras.html"><i class="fas fa-shopping-cart"></i> Compras</a>
-    <a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a>
-    <a href="index.html" class="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
-</nav>
+      <a href="site.html"><i class="fas fa-tachometer-alt"></i> Início</a>
+      <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+      <a href="cursos.html"><i class="fas fa-book"></i> Cursos</a>
+      <a href="compras.html"><i class="fas fa-shopping-cart"></i> Compras</a>
+      <a href="configuracoes.html" class="active"><i class="fas fa-cog"></i> Configurações</a>
+      <a href="index.html" class="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </nav>
   </div>
   <div class="main">
     <div class="header">
@@ -229,9 +94,45 @@
       </div>
     </div>
     <div class="grid">
-      <div class="card"><div class="card-header"><div class="card-header-title"><i class="fas fa-user-circle"></i><h2>Conta</h2></div></div><div class="card-content"><div class="setting-row"><span>Nome de usuário</span><button class="btn-secondary">Alterar</button></div><div class="setting-row"><span>Email</span><button class="btn-secondary">Alterar</button></div><div class="setting-row"><span>Senha</span><button class="btn-secondary">Alterar</button></div></div></div>
-      <div class="card"><div class="card-header"><div class="card-header-title"><i class="fas fa-palette"></i><h2>Aparência</h2></div></div><div class="card-content"><div class="setting-row"><span>Modo claro</span><label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label></div><div class="setting-row"><span>Perfil Público</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div></div></div>
-      <div class="card"><div class="card-header"><div class="card-header-title"><i class="fas fa-info-circle"></i><h2>Sobre</h2></div></div><div class="card-content"><div class="setting-row"><span>Ver Créditos do Projeto</span><a href="creditos.html"><button class="btn-secondary">Ver</button></a></div><div class="setting-row"><span>Termos de Serviço</span><button class="btn-secondary">Ler</button></div><div class="setting-row"><span>Política de Privacidade</span><button class="btn-secondary">Ler</button></div></div></div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-title"><i class="fas fa-user-circle"></i><h2>Conta</h2></div></div>
+        <div class="card-content">
+          <div class="setting-row"><span>Nome de usuário</span><button class="btn-secondary" data-modal-target="settings-modal" data-setting="Nome de Usuário">Alterar</button></div>
+          <div class="setting-row"><span>Email</span><button class="btn-secondary" data-modal-target="settings-modal" data-setting="Email">Alterar</button></div>
+          <div class="setting-row"><span>Senha</span><button class="btn-secondary" data-modal-target="settings-modal" data-setting="Senha">Alterar</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-title"><i class="fas fa-palette"></i><h2>Aparência</h2></div></div>
+        <div class="card-content">
+          <div class="setting-row"><span>Modo claro</span><label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-title"><i class="fas fa-info-circle"></i><h2>Sobre</h2></div></div>
+        <div class="card-content">
+          <div class="setting-row"><span>Ver Créditos do Projeto</span><a href="creditos.html"><button class="btn-secondary">Ver</button></a></div>
+          <div class="setting-row"><span>Termos de Serviço</span><button class="btn-secondary" data-modal-target="tos-modal">Ler</button></div>
+          <div class="setting-row"><span>Política de Privacidade</span><button class="btn-secondary" data-modal-target="privacy-modal">Ler</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-title"><i class="fas fa-envelope"></i><h2>Contato</h2></div></div>
+        <div class="card-content" style="gap: 0;">
+            <div class="contact-entry">
+                <p><strong>Emanoel Brito</strong></p>
+                <p>Fundador & Desenvolvedor</p>
+                <p><i class="fas fa-envelope"></i> emanoel.x6@Gmail.com</p>
+                <p><i class="fas fa-phone"></i> (46) 99920-6014</p>
+            </div>
+            <div class="contact-entry">
+                <p><strong>Yuri Miguel</strong></p>
+                <p>Fundador & Desenvolvedor</p>
+                <p><i class="fas fa-envelope"></i> yuricavejon04@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (46) 99926-1843</p>
+            </div>
+        </div>
+      </div>
     </div>
   </div>
     
@@ -246,15 +147,96 @@
     </div>
   </div>
 
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h3 id="settings-modal-title"></h3>
+        <p id="settings-modal-description"></p>
+        <form id="settings-modal-form" onsubmit="return false;"></form>
+        <div class="modal-buttons">
+            <button class="btn-secondary" data-modal-close>Cancelar</button>
+            <button id="save-settings-btn" class="btn-primary">Salvar Alterações</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="tos-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h3>Termos de Serviço</h3>
+        <div class="policy-content">
+            <p><strong>Última atualização: 11 de setembro de 2025</strong></p>
+            <p>Bem-vindo à nossa plataforma! Estes termos e condições descrevem as regras e regulamentos para o uso do nosso site.</p>
+            <h4>1. Aceitação dos Termos</h4>
+            <p>Ao acessar este site, presumimos que você aceita estes termos e condições na íntegra. Não continue a usar a plataforma se não concordar com todos os termos e condições declarados nesta página.</p>
+            <h4>2. Contas de Usuário</h4>
+            <p>Ao criar uma conta conosco, você deve nos fornecer informações precisas, completas e atuais. A falha em fazer isso constitui uma violação dos Termos, o que pode resultar na rescisão imediata de sua conta em nosso Serviço. Você é responsável por proteger a senha que usa para acessar o Serviço e por quaisquer atividades ou ações sob sua senha.</p>
+            <h4>3. Conduta do Usuário</h4>
+            <p>Você concorda em não usar o Serviço para qualquer finalidade ilegal ou proibida. Você não deve transmitir qualquer material que seja difamatório, ofensivo, pornográfico, ameaçador ou de outra forma censurável.</p>
+            <h4>4. Propriedade Intelectual</h4>
+            <p>O Serviço e seu conteúdo original (excluindo conteúdo fornecido pelos usuários), recursos e funcionalidades são e permanecerão propriedade exclusiva da nossa organização e de seus licenciadores.</p>
+            <h4>5. Limitação de Responsabilidade</h4>
+            <p>Em nenhuma circunstância nossa plataforma, nem seus diretores ou funcionários, serão responsáveis por quaisquer danos indiretos, incidentais, especiais, consequenciais ou punitivos, incluindo, sem limitação, perda de lucros, dados, uso, boa vontade ou outras perdas intangíveis.</p>
+            <h4>6. Alterações</h4>
+            <p>Reservamo-nos o direito, a nosso exclusivo critério, de modificar ou substituir estes Termos a qualquer momento. Se uma revisão for material, tentaremos fornecer um aviso com pelo menos 30 dias de antecedência antes que quaisquer novos termos entrem em vigor.</p>
+            <h4>7. Contato</h4>
+            <p>Se você tiver alguma dúvida sobre estes Termos, entre em contato conosco.</p>
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-primary" data-modal-close>Entendido</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="privacy-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h3>Política de Privacidade</h3>
+        <div class="policy-content">
+            <p><strong>Última atualização: 11 de setembro de 2025</strong></p>
+            <p>A sua privacidade é importante para nós. É política da nossa plataforma respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site.</p>
+            <h4>1. Informações que Coletamos</h4>
+            <p>Coletamos informações que você nos fornece diretamente, como quando você cria uma conta (nome de usuário, e-mail, senha). Também podemos coletar informações sobre seu uso do serviço, como os cursos que você acessa.</p>
+            <h4>2. Como Usamos Suas Informações</h4>
+            <p>Usamos as informações que coletamos para operar, manter e fornecer a você os recursos e a funcionalidade do Serviço, para nos comunicarmos com você, para monitorar e melhorar nosso Serviço e para ajudar a proteger você e outros usuários.</p>
+            <h4>3. Compartilhamento de Informações</h4>
+            <p>Não compartilhamos suas informações pessoais com empresas, organizações ou indivíduos externos, exceto nos seguintes casos: com o seu consentimento; por motivos legais (para cumprir qualquer lei, regulamento, processo legal ou solicitação governamental aplicável).</p>
+            <h4>4. Segurança dos Dados</h4>
+            <p>Trabalhamos duro para proteger nossos usuários contra acesso não autorizado ou alteração, divulgação ou destruição não autorizada das informações que mantemos. No entanto, nenhum sistema é 100% seguro.</p>
+            <h4>5. Privacidade de Crianças</h4>
+            <p>Nosso serviço não se destina a menores de 13 anos. Não coletamos intencionalmente informações de identificação pessoal de crianças menores de 13 anos.</p>
+            <h4>6. Seus Direitos</h4>
+            <p>Você tem o direito de acessar e corrigir suas informações pessoais. Você também pode solicitar a exclusão de sua conta a qualquer momento.</p>
+        </div>
+        <div class="modal-buttons">
+            <button class="btn-primary" data-modal-close>Entendido</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="success-modal" class="modal-overlay hidden">
+    <div class="modal-content success-modal-content">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h3>Sucesso!</h3>
+        <p>Suas alterações foram salvas com sucesso.</p>
+        <div class="modal-buttons">
+            <button class="btn-primary" data-modal-close>OK</button>
+        </div>
+    </div>
+  </div>
+
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+  
   <script>
     const menuToggle=document.getElementById("menu-toggle"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay");
-    menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")});
-    overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")});
+    if(menuToggle){menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")})}
+    if(overlay){overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")})}
     const logoutLink=document.querySelector("a.logout"),logoutModal=document.getElementById("confirm-logout-modal"),cancelLogoutBtn=document.getElementById("cancel-logout-btn"),confirmLogoutBtn=document.getElementById("confirm-logout-btn");
-    logoutLink.addEventListener("click",function(e){e.preventDefault(),logoutModal.classList.remove("hidden")}),cancelLogoutBtn.addEventListener("click",()=>logoutModal.classList.add("hidden")),confirmLogoutBtn.addEventListener("click",()=>window.location.href=logoutLink.href),logoutModal.addEventListener("click",e=>e.target===logoutModal&&logoutModal.classList.add("hidden"));
+    if(logoutLink){logoutLink.addEventListener("click",function(e){e.preventDefault(),logoutModal.classList.remove("hidden")})}
+    if(cancelLogoutBtn){cancelLogoutBtn.addEventListener("click",()=>logoutModal.classList.add("hidden"))}
+    if(confirmLogoutBtn){confirmLogoutBtn.addEventListener("click",()=>window.location.href=logoutLink.href)}
+    if(logoutModal){logoutModal.addEventListener("click",e=>e.target===logoutModal&&logoutModal.classList.add("hidden"))}
+    
+    document.addEventListener('DOMContentLoaded',()=>{const allModalTriggers=document.querySelectorAll("[data-modal-target]"),allCloseButtons=document.querySelectorAll("[data-modal-close]"),pageOverlay=document.getElementById("overlay");const openModal=e=>{e&&(e.classList.remove("hidden"),"confirm-logout-modal"!==e.id&&pageOverlay&&pageOverlay.classList.add("active"))},closeModal=e=>{e&&(e.classList.add("hidden"),"confirm-logout-modal"!==e.id&&pageOverlay&&pageOverlay.classList.remove("active"))};allModalTriggers.forEach(e=>{e.addEventListener("click",()=>{const o=e.dataset.modalTarget,t=document.getElementById(o);"settings-modal"===o&&prepareSettingsModal(e.dataset.setting),openModal(t)})}),allCloseButtons.forEach(e=>{e.addEventListener("click",()=>{const o=e.closest(".modal-overlay");closeModal(o)})}),document.querySelectorAll(".modal-overlay").forEach(e=>{e.addEventListener("click",o=>{o.target===e&&closeModal(e)})});const settingsModalTitle=document.getElementById("settings-modal-title"),settingsModalDescription=document.getElementById("settings-modal-description"),settingsModalForm=document.getElementById("settings-modal-form"),saveSettingsBtn=document.getElementById("save-settings-btn"),prepareSettingsModal=e=>{settingsModalTitle.textContent=`Alterar ${e}`,settingsModalForm.innerHTML="","Nome de Usuário"===e?(settingsModalDescription.textContent="Digite seu novo nome de usuário abaixo.",settingsModalForm.innerHTML='<div class="modal-form-group">\n              <label for="new-username">Novo Nome de Usuário</label>\n              <input type="text" id="new-username" required>\n            </div>'):"Email"===e?(settingsModalDescription.textContent="Digite seu novo endereço de e-mail.",settingsModalForm.innerHTML='<div class="modal-form-group">\n              <label for="new-email">Novo E-mail</label>\n              <input type="email" id="new-email" required>\n            </div>'):"Senha"===e&&(settingsModalDescription.textContent="Para sua segurança, digite sua senha atual e a nova senha.",settingsModalForm.innerHTML='<div class="modal-form-group">\n              <label for="current-password">Senha Atual</label>\n              <input type="password" id="current-password" required>\n            </div>\n            <div class="modal-form-group">\n              <label for="new-password">Nova Senha</label>\n              <input type="password" id="new-password" required>\n            </div>\n            <div class="modal-form-group">\n              <label for="confirm-password">Confirmar Nova Senha</label>\n              <input type="password" id="confirm-password" required>\n            </div>')};saveSettingsBtn&&saveSettingsBtn.addEventListener("click",()=>{const e=document.getElementById("settings-modal"),o=document.getElementById("success-modal");closeModal(e),openModal(o)})});
   </script>
   <script src="tema.js"></script>
 </body>

@@ -30,7 +30,7 @@
       <button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
       <div class="header-text">
         <h1>Painel de Início</h1>
-        <p>Seja bem-vindo de volta, <span id="user-name-display">admin</span>!</p>
+         <p>Seja bem-vindo de volta, admin!</p>
       </div>
     </div>
     <div class="grid">
@@ -103,36 +103,7 @@
     });
   </script>
   <script src="tema.js"></script>
-  <script>
-    async function carregarNomeUsuario() {
-        const userId = localStorage.getItem('userId');
-        const userDisplay = document.getElementById('user-name-display');
-
-        if (!userId || !userDisplay) {
-            // Se não houver ID ou o elemento, não faz nada
-            return;
-        }
-
-        const backendUrl = "https://hackatonbackend.onrender.com";
-
-        try {
-            const response = await fetch(`${backendUrl}/perfil/${userId}`);
-            const data = await response.json();
-
-            if (response.ok && data.usuario) {
-                userDisplay.textContent = data.usuario;
-            } else {
-                console.error("Erro ao buscar perfil:", data.error);
-                userDisplay.textContent = "Erro!";
-            }
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-            userDisplay.textContent = "Erro!";
-        }
-    }
-
-    carregarNomeUsuario();
-</script>
 </body>
 </html>
+
 

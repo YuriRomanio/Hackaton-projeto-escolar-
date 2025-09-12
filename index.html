@@ -164,13 +164,13 @@
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script>
-    // Seleciona os elementos do DOM
+   
     const loginForm = document.getElementById("login-form");
     const cadastroForm = document.getElementById("cadastro-form");
     const toggleLink = document.getElementById("toggle-link");
     const formTitle = document.getElementById("form-title");
     
-    // Adicione um elemento para exibir mensagens
+   
     const messageDisplay = document.createElement('p');
     messageDisplay.style.textAlign = 'center';
     messageDisplay.style.marginTop = '15px';
@@ -199,7 +199,7 @@
       toggleForms();
     });
 
-    // LÓGICA DO BACKEND: Conectar o formulário de Cadastro ao seu Backend
+    
     cadastroForm.addEventListener("submit", async function(e) {
       e.preventDefault();
       messageDisplay.textContent = 'Cadastrando...';
@@ -208,7 +208,7 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("nova-senha").value;
 
-      // Substitua esta URL pela URL do seu backend no Render
+   
       const backendUrl = "https://hackatonbackend.onrender.com"; 
 
       try {
@@ -225,7 +225,7 @@
         if (response.ok) {
           messageDisplay.textContent = data.message;
           alert("Cadastro feito com sucesso! Verifique seu e-mail para confirmar a conta.");
-          toggleForms(); // Volta para o formulário de login
+          toggleForms(); 
         } else {
           messageDisplay.textContent = data.error || "Erro no cadastro.";
         }
@@ -235,15 +235,15 @@
       }
     });
 
-    // LÓGICA DO BACKEND: Conectar o formulário de Login ao seu Backend
+   
     loginForm.addEventListener("submit", async function(e) {
       e.preventDefault();
       messageDisplay.textContent = 'Entrando...';
 
-      const email = document.getElementById("usuario").value; // Usando o campo 'usuario' como 'email'
+      const email = document.getElementById("usuario").value; 
       const password = document.getElementById("senha").value;
 
-      // Substitua esta URL pela URL do seu backend no Render
+     
       const backendUrl = "https://hackatonbackend.onrender.com"; 
 
       try {
@@ -259,8 +259,10 @@
 
         if (response.ok) {
           messageDisplay.textContent = "Login bem-sucedido!";
+          
           // Aqui você pode redirecionar o usuário para a página principal
-          // window.location.href = "site.html"; 
+          window.location.href = "site.html"; 
+          
         } else {
           messageDisplay.textContent = data.error || "Erro no login.";
         }
@@ -288,4 +290,5 @@
 </script>
 </body>
 </html>
+
 

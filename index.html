@@ -164,10 +164,19 @@
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script>
+    // Seleciona os elementos do DOM
     const loginForm = document.getElementById("login-form");
     const cadastroForm = document.getElementById("cadastro-form");
     const toggleLink = document.getElementById("toggle-link");
     const formTitle = document.getElementById("form-title");
+    
+    // Adicione um elemento para exibir mensagens
+    const messageDisplay = document.createElement('p');
+    messageDisplay.style.textAlign = 'center';
+    messageDisplay.style.marginTop = '15px';
+    messageDisplay.style.color = '#fff';
+    messageDisplay.style.fontSize = '14px';
+    document.querySelector('.container').appendChild(messageDisplay);
 
     function toggleForms() {
       if (loginForm.classList.contains("hidden")) {
@@ -181,6 +190,8 @@
         formTitle.textContent = "Cadastro";
         toggleLink.textContent = "Já tem conta? Voltar ao login";
       }
+      // Limpa a mensagem ao alternar o formulário
+      messageDisplay.textContent = '';
     }
 
     toggleLink.addEventListener("click", (e) => {
@@ -188,21 +199,75 @@
       toggleForms();
     });
 
-    loginForm.addEventListener("submit", function(e) {
+    // LÓGICA DO BACKEND: Conectar o formulário de Cadastro ao seu Backend
+    cadastroForm.addEventListener("submit", async function(e) {
       e.preventDefault();
-      const usuario = document.getElementById("usuario").value;
-      const senha = document.getElementById("senha").value;
-      if (usuario === "admin" && senha === "developer") {
-        window.location.href = "site.html";
-      } else {
-        alert("Usuário ou senha inválidos!");
+      messageDisplay.textContent = 'Cadastrando...';
+
+      const usuario = document.getElementById("novo-usuario").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("nova-senha").value;
+
+      // Substitua esta URL pela URL do seu backend no Render
+      const backendUrl = "https://hackatonbackend.onrender.com"; 
+
+      try {
+        const response = await fetch(`${backendUrl}/cadastro`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password, usuario })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          messageDisplay.textContent = data.message;
+          alert("Cadastro feito com sucesso! Verifique seu e-mail para confirmar a conta.");
+          toggleForms(); // Volta para o formulário de login
+        } else {
+          messageDisplay.textContent = data.error || "Erro no cadastro.";
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        messageDisplay.textContent = "Erro ao conectar com o servidor. Tente novamente.";
       }
     });
-    
-    cadastroForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        alert("Cadastro realizado com sucesso! Por favor, faça o login.");
-        toggleForms();
+
+    // LÓGICA DO BACKEND: Conectar o formulário de Login ao seu Backend
+    loginForm.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      messageDisplay.textContent = 'Entrando...';
+
+      const email = document.getElementById("usuario").value; // Usando o campo 'usuario' como 'email'
+      const password = document.getElementById("senha").value;
+
+      // Substitua esta URL pela URL do seu backend no Render
+      const backendUrl = "https://hackatonbackend.onrender.com"; 
+
+      try {
+        const response = await fetch(`${backendUrl}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+
+        if (response.ok) {
+          messageDisplay.textContent = "Login bem-sucedido!";
+          // Aqui você pode redirecionar o usuário para a página principal
+          // window.location.href = "site.html"; 
+        } else {
+          messageDisplay.textContent = data.error || "Erro no login.";
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        messageDisplay.textContent = "Erro ao conectar com o servidor. Tente novamente.";
+      }
     });
 
     function setupPasswordToggle(inputId, toggleId) {
@@ -220,6 +285,7 @@
 
     setupPasswordToggle('senha', 'toggle-senha');
     setupPasswordToggle('nova-senha', 'toggle-nova-senha');
-  </script>
+</script>
 </body>
 </html>
+

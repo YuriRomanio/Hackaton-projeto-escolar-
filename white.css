@@ -1,9 +1,142 @@
+/*
+  ==============================================================
+  TEMA CLARO (LIGHT MODE) v6.0 - FINAL COM CONTRASTE E HOVER
+  ==============================================================
+*/
 
-body.tema-escuro {
-   --bg-primary: #F0F2F5; /* Fundo principal claro, como um cinza suave */
-  --bg-secondary: #FFFFFF; /* Fundo secundário branco puro para os cards */
-  --border-color: #E0E0E0; /* Borda cinza claro */
-  --text-primary: #333333; /* Texto principal escuro para alto contraste */
-  --text-secondary: #666666; /* Texto secundário cinza escuro */
-  --accent-color: #007bff;
+/* 1. Cores da sua paleta para o modo claro */
+body.light-mode {
+  /* Cores de fundo */
+  --bg-primary: #F0F2F5;    /* Fundo principal claro */
+  --bg-secondary: #FFFFFF;  /* Cards brancos, Sidebar, Header */
+  
+  /* Cores de borda e separação */
+  --border-color: #E0E0E0;    /* Borda cinza claro para elementos */
+  --shadow-color: rgba(0, 0, 0, 0.08); /* Sombra mais visível para profundidade */
+  --hover-shadow-color: rgba(0, 0, 0, 0.15); /* Sombra ao passar o mouse */
+
+  /* Cores de texto */
+  --text-primary: #333333;    /* Texto principal escuro */
+  --text-secondary: #666666;  /* Texto secundário cinza */
+  
+  /* Cor de destaque (azul) */
+  --accent-color: #007bff;   
+  
+  /* Cores para tags e botões específicos */
+  --tag-member-bg: rgba(0, 123, 255, 0.1);
+  --tag-member-text: #0056b3;
+  --tag-member-border: rgba(0, 123, 255, 0.3);
+
+  /* Garantir que o background do body seja aplicado */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* 2. Aplicação de BORDAS e SOMBRAS para profundidade geral */
+body.light-mode .sidebar,
+body.light-mode .card,
+body.light-mode .profile-header,
+body.light-mode .container /* para a tela de login/index */ {
+  border: 1px solid var(--border-color); /* Borda suave mais visível */
+  box-shadow: 0 4px 15px var(--shadow-color); /* Sombra mais notável */
+}
+
+/* Efeito de HOVER com sombra para Cards e Sidebar Links */
+body.light-mode .card:hover {
+  transform: translateY(-3px); /* Leve levantamento */
+  box-shadow: 0 6px 20px var(--hover-shadow-color); /* Sombra mais intensa no hover */
+}
+
+/* Links da barra lateral */
+body.light-mode .sidebar-nav a {
+  color: var(--text-secondary); /* Cor do texto padrão para links */
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; /* Transição para o hover */
+}
+body.light-mode .sidebar-nav a:hover,
+body.light-mode .sidebar-nav a.active {
+  background-color: #e9ecef; /* Fundo mais claro no hover/ativo */
+  color: var(--text-primary); /* Texto mais escuro no hover/ativo */
+  border-left-color: var(--accent-color); /* Borda lateral azul */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil ao passar o mouse na aba */
+}
+
+
+/* 3. Ajustes específicos para outros elementos no modo claro */
+
+/* Inputs de formulário e pesquisa */
+body.light-mode .formulario input,
+body.light-mode .search-bar,
+body.light-mode .search-bar input {
+    background-color: #f1f3f5;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+body.light-mode .formulario input:focus {
+    background-color: #ffffff;
+    border-color: var(--accent-color); /* Borda azul ao focar */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Sombra azul suave ao focar */
+}
+
+body.light-mode .search-bar button {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+}
+
+/* Toggles (sliders) do menu de configurações */
+body.light-mode .switch .slider {
+    background-color: #ccc; /* Fundo cinza para o slider desativado */
+}
+body.light-mode .switch input:checked + .slider {
+    background-color: var(--accent-color); /* Fundo azul para o slider ativado */
+}
+body.light-mode .switch .slider:before {
+    background-color: #ffffff; /* Círculo branco do slider */
+}
+
+/* Tags de perfil (Membro, Privado) */
+body.light-mode .tag.member,
+body.light-mode .tag.private {
+    background-color: var(--tag-member-bg);
+    color: var(--tag-member-text);
+    border-color: var(--tag-member-border);
+}
+
+/* Badges de categoria na página de cursos */
+body.light-mode .filter-categories .badge {
+    background-color: #e9ecef;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color); /* Adiciona borda sutil */
+}
+
+/* Botão secundário (Cancelar no modal, etc) */
+body.light-mode .btn-secondary,
+body.light-mode .modal-buttons .btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+body.light-mode .btn-secondary:hover {
+    background-color: #e9ecef;
+}
+
+/* Modal */
+body.light-mode .modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra mais profunda no modal */
+}
+body.light-mode .modal-content h3 {
+    color: var(--text-primary);
+}
+body.light-mode .modal-content p {
+    color: var(--text-secondary);
+}
+
+/* Botoes de icones (tipo o + no card de assinaturas) */
+body.light-mode .btn-icon {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para botões de ícone */
 }

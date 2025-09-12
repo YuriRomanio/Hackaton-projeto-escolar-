@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hackaton - Início</title>
+  <title>AcessCore - Início</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 <body>
   <div id="overlay" class="overlay"></div>
   <div id="sidebar" class="sidebar">
-    <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>Hackaton</h2></div>
+    <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>AcessCore</h2></div>
     <nav class="sidebar-nav">
     <a href="site.html"><i class="fas fa-tachometer-alt"></i> Início</a>
     <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
@@ -40,7 +40,7 @@
           <ul class="course-progress-list">
             <li>
               <div class="course-progress-header">
-                <strong>Capacitação em Autismo</strong>
+                <strong>Capacitação em Organização Financeira Pessoal</strong>
                 <span>75%</span>
               </div>
               <div class="mini-progress-bar-container"><div class="mini-progress-bar" style="width: 75%;"></div></div>
@@ -84,10 +84,13 @@
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script>
     const menuToggle=document.getElementById("menu-toggle"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay");
-    menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")});
-    overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")});
+    if(menuToggle) { menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")}); }
+    if(overlay) { overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")}); }
     const logoutLink=document.querySelector("a.logout"),logoutModal=document.getElementById("confirm-logout-modal"),cancelLogoutBtn=document.getElementById("cancel-logout-btn"),confirmLogoutBtn=document.getElementById("confirm-logout-btn");
-    logoutLink.addEventListener("click",function(e){e.preventDefault(),logoutModal.classList.remove("hidden")}),cancelLogoutBtn.addEventListener("click",()=>logoutModal.classList.add("hidden")),confirmLogoutBtn.addEventListener("click",()=>window.location.href=logoutLink.href),logoutModal.addEventListener("click",e=>e.target===logoutModal&&logoutModal.classList.add("hidden"));
+    if(logoutLink) { logoutLink.addEventListener("click",function(e){e.preventDefault(),logoutModal.classList.remove("hidden")}); }
+    if(cancelLogoutBtn) { cancelLogoutBtn.addEventListener("click",()=>logoutModal.classList.add("hidden")); }
+    if(confirmLogoutBtn) { confirmLogoutBtn.addEventListener("click",()=>window.location.href=logoutLink.href); }
+    if(logoutModal) { logoutModal.addEventListener("click",e=>e.target===logoutModal&&logoutModal.classList.add("hidden")); }
     document.addEventListener('DOMContentLoaded', () => {
         const ctx = document.getElementById('progressChart');
         if (ctx) {

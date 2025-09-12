@@ -260,11 +260,7 @@
         if (response.ok) {
           messageDisplay.textContent = "Login bem-sucedido!";
           
-          if (data.session && data.session.user) {
-             localStorage.setItem('userId', data.session.user.id);
-       } else if (data.session && data.session.user_id) {
-             localStorage.setItem('userId', data.session.user_id);
-        }
+      
           
           // Aqui você pode redirecionar o usuário para a página principal
           window.location.href = "site.html"; 
@@ -296,6 +292,7 @@
 </script>
 </body>
 </html>
+
 
 
 

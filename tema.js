@@ -1,31 +1,30 @@
-
-    document.addEventListener("DOMContentLoaded", () => {
-    const darkModeToggle = document.getElementById("dark-mode-toggle");
+document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("theme-toggle");
     const body = document.body;
 
-    // Carrega o estado do tema salvo no localStorage
-    const temaSalvo = localStorage.getItem("tema");
-    if (temaSalvo === "escuro") {
-        body.classList.add("tema-escuro");
-        if (darkModeToggle) {
-            darkModeToggle.checked = true;
-        }
-    } else {
-        body.classList.remove("tema-escuro");
-        if (darkModeToggle) {
-            darkModeToggle.checked = false;
+    function applyTheme(theme) {
+        if (theme === "light") {
+            body.classList.add("light-mode");
+            if (themeToggle) themeToggle.checked = true;
+        } else {
+            body.classList.remove("light-mode");
+            if (themeToggle) themeToggle.checked = false;
         }
     }
 
-    // Adiciona o evento de mudança ao slider
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener("change", () => {
-            if (darkModeToggle.checked) {
-                body.classList.add("tema-escuro");
-                localStorage.setItem("tema", "escuro");
+    // Carrega o tema salvo no localStorage ou usa "dark" como padrão
+    // Isso garante que, se nada foi salvo, ele comece no escuro (seu tema padrão)
+    const savedTheme = localStorage.getItem("theme") || "dark"; 
+    applyTheme(savedTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener("change", () => {
+            if (themeToggle.checked) {
+                applyTheme("light");
+                localStorage.setItem("theme", "light");
             } else {
-                body.classList.remove("tema-escuro");
-                localStorage.setItem("tema", "claro");
+                applyTheme("dark");
+                localStorage.setItem("theme", "dark");
             }
         });
     }

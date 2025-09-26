@@ -98,11 +98,39 @@
     const menuToggle=document.getElementById("menu-toggle"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay");
     if(menuToggle) { menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")}); }
     if(overlay) { overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")}); }
-    const logoutLink=document.querySelector("a.logout"),logoutModal=document.getElementById("confirm-logout-modal"),cancelLogoutBtn=document.getElementById("cancel-logout-btn"),confirmLogoutBtn=document.getElementById("confirm-logout-btn");
-    if(logoutLink) { logoutLink.addEventListener("click",function(e){e.preventDefault(),logoutModal.classList.remove("hidden")}); }
-    if(cancelLogoutBtn) { cancelLogoutBtn.addEventListener("click",()=>logoutModal.classList.add("hidden")); }
-    if(confirmLogoutBtn) { confirmLogoutBtn.addEventListener("click",()=>window.location.href=logoutLink.href); }
-    if(logoutModal) { logoutModal.addEventListener("click",e=>e.target===logoutModal&&logoutModal.classList.add("hidden")); }
+    const logoutLink = document.querySelector("a.logout");
+const logoutModal = document.getElementById("confirm-logout-modal");
+const cancelLogoutBtn = document.getElementById("cancel-logout-btn");
+const confirmLogoutBtn = document.getElementById("confirm-logout-btn");
+
+// 1. Mostrar o Modal ao clicar no link "Sair" na sidebar
+if (logoutLink) { 
+    logoutLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        logoutModal.classList.remove("hidden");
+    }); 
+}
+
+// 2. Esconder o Modal ao clicar em "Cancelar"
+if (cancelLogoutBtn) { 
+    cancelLogoutBtn.addEventListener("click", () => logoutModal.classList.add("hidden")); 
+}
+
+// 3. AÇÃO DE LOGOUT: LIMPAR TOKEN E REDIRECIONAR (O passo de segurança)
+if (confirmLogoutBtn) { 
+    confirmLogoutBtn.addEventListener("click", () => {
+        // AÇÃO CRÍTICA: Remove a sessão salva no localStorage
+        localStorage.removeItem('supabase_session'); 
+        
+        // Redireciona para o index.html (página de login)
+        window.location.href = logoutLink.href; 
+    }); 
+}
+
+// 4. Esconder o Modal ao clicar fora
+if (logoutModal) { 
+    logoutModal.addEventListener("click", e => e.target === logoutModal && logoutModal.classList.add("hidden")); 
+}
     document.addEventListener('DOMContentLoaded', () => {
         const ctx = document.getElementById('progressChart');
         if (ctx) {
@@ -117,6 +145,7 @@
   <script src="tema.js"></script>
 </body>
 </html>
+
 
 
 

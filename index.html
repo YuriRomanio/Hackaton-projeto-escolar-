@@ -260,6 +260,9 @@
 
         if (response.ok) {
           messageDisplay.textContent = "Login bem-sucedido!";
+
+           const sessionToken = data.session;
+           localStorage.setItem('supabase_session', sessionToken); 
           // Aqui você pode redirecionar o usuário para a página principal
           window.location.href = "site.html"; 
         } else {
@@ -289,6 +292,7 @@
 </script>
 </body>
 </html>
+
 
 
 

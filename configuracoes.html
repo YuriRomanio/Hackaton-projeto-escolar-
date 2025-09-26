@@ -73,6 +73,18 @@
   </style>
 </head>
 <body>
+    <script>
+        const token = localStorage.getItem('supabase_session');
+
+        // Se o token não for encontrado, redireciona imediatamente para a página de login
+        if (!token) {
+            alert("Acesso negado. Faça login para continuar.");
+            // Altere 'index.html' se a sua página de login tiver outro nome
+            window.location.href = "index.html"; 
+        }
+        
+        // Se o token existir, o script continua e o usuário vê o conteúdo da página.
+    </script>
   <div id="overlay" class="overlay"></div>
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>AcessCore</h2></div>

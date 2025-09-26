@@ -237,6 +237,18 @@
         }
     </style>
 </head>
+      <script>
+        const token = localStorage.getItem('supabase_session');
+
+        // Se o token não for encontrado, redireciona imediatamente para a página de login
+        if (!token) {
+            alert("Acesso negado. Faça login para continuar.");
+            // Altere 'index.html' se a sua página de login tiver outro nome
+            window.location.href = "index.html"; 
+        }
+        
+        // Se o token existir, o script continua e o usuário vê o conteúdo da página.
+    </script>
 <body>
     <div id="overlay" class="overlay"></div>
     <div id="sidebar" class="sidebar">
@@ -323,3 +335,4 @@
     <script src="tema.js"></script>
 </body>
 </html>
+

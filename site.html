@@ -25,6 +25,7 @@
         
         // Se o token existir, o script continua e o usuário vê o conteúdo da página.
     </script>
+  
   <div id="overlay" class="overlay"></div>
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header"><i class="fas fa-rocket"></i><h2>AcessCore</h2></div>
@@ -41,9 +42,9 @@
     <div class="header">
       <button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
       <div class="header-text">
-        <h1>Painel de Início</h1>
-         <p>Seja bem-vindo de volta, admin!</p>
-      </div>
+        <h1>Painel de Início</h1>
+         <p id="welcome-message">Seja bem-vindo de volta, [Carregando Nome...]!</p>
+      </div>
     </div>
     <div class="grid">
       <div class="card">
@@ -95,6 +96,46 @@
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script>
+      const backendUrl = "https://hackaton-backend-jade.vercel.app"; 
+      const welcomeMessage = document.getElementById('welcome-message');
+ async function fetchUserName() {
+        if (!welcomeMessage || !token) return;
+        
+        try {
+            const response = await fetch(`${backendUrl}/perfil`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}` // ENVIA O TOKEN SALVO
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const userName = data.usuario;
+                // ATUALIZA O TEXTO COM O NOME OBTIDO DO BACKEND
+                welcomeMessage.textContent = `Seja bem-vindo de volta, ${userName}!`;
+            } else {
+                console.error('Erro ao buscar perfil:', data.error);
+                welcomeMessage.textContent = 'Erro de acesso. Faça login novamente.';
+                
+                // Trata token inválido forçando o logout
+                if (response.status === 401 || response.status === 404) {
+                    localStorage.removeItem('supabase_session'); 
+                    window.location.href = "index.html"; 
+                }
+            }
+        } catch (error) {
+            console.error('Erro de conexão ao buscar perfil:', error);
+            welcomeMessage.textContent = 'Erro de conexão com o servidor.';
+        }
+    }
+
+    // CHAMA A FUNÇÃO AO CARREGAR A PÁGINA
+    if (token) {
+        fetchUserName();
+    }
+    
     const menuToggle=document.getElementById("menu-toggle"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay");
     if(menuToggle) { menuToggle.addEventListener("click",()=>{sidebar.classList.toggle("open"),overlay.classList.toggle("active")}); }
     if(overlay) { overlay.addEventListener("click",()=>{sidebar.classList.remove("open"),overlay.classList.remove("active")}); }
@@ -145,6 +186,7 @@ if (logoutModal) {
   <script src="tema.js"></script>
 </body>
 </html>
+
 
 
 
